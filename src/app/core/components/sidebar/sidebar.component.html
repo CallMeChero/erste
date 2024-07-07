@@ -14,7 +14,7 @@
     </div>
     <div class="nav-item-container ml-16">
         @for(navItem of (featureNavItems$ | async); track navItem) {
-            <div class="nav-item-container__item pl-24 gap-10">
+            <div class="nav-item-container__item pl-24 gap-10" [routerLink]="navItem.urlPath">
                 <mat-icon class="icon-size-32" [svgIcon]="navItem.name!"></mat-icon>
                 <span class="font-size-16">
                     {{ navItem.name}}

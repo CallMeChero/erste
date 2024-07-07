@@ -5,6 +5,13 @@ export const routes: Routes = [
     {
         path: '',
         component: MasterLayoutComponent,
-        children: []
+        children: [
+            {
+                path: 'iop',
+                loadComponent: () => 
+                    import('./features/components/iop/list/iop-list.component')
+                    .then((m) => m.IopListComponent),
+            },
+        ]
     }
 ];

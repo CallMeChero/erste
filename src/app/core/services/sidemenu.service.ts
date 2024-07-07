@@ -26,7 +26,7 @@ export class SidemenuService {
    {
     name: 'IOP',
     filePath: 'icons/folder.svg',
-    urlPath: '',
+    urlPath: 'iop',
     isActive: true
    },
    {

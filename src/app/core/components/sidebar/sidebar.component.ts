@@ -6,13 +6,14 @@ import { Observable, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ISideMenuItem } from '../../interfaces/sidemenu';
 import { SidemenuService } from '../../services/sidemenu.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, RouterModule],
   templateUrl: './sidebar.component.html',
-  providers: [HttpClient],
+  providers: [HttpClient, Router],
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent implements OnInit{
