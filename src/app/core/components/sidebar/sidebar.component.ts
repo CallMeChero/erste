@@ -27,11 +27,12 @@ export class SidebarComponent implements OnInit{
   ) {
     this.homeNavItem = _sidemenuService.homeItem;
     this.userNavItem = _sidemenuService.userItem;
+
+    this.registerIcon(this.homeNavItem);
+    this.registerIcon(this.userNavItem);
   }
 
   public ngOnInit(): void {
-    this.registerIcon(this.homeNavItem);
-    this.registerIcon(this.userNavItem);
     // this will be role based items
     this.featureNavItems$ = this._sidemenuService.navItems$.pipe(
       tap((items: ISideMenuItem[]) => {
