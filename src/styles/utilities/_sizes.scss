@@ -1,0 +1,15 @@
+$fontsizes: (12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 40, 48);
+@each $fontsize in $fontsizes {
+    .font-size-#{$fontsize} {
+        font-size: #{$fontsize}px !important;
+    }
+}
+
+$iconsizes: (24, 32, 40, 70);
+@each $iconsize in $iconsizes {
+    .icon-size-#{$iconsize} {
+        font-size: #{$iconsize}px !important;
+        width: #{$iconsize}px !important;
+        height: #{$iconsize}px !important;
+    }
+}
