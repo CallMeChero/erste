@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, of, tap } from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { ISideMenuItem } from '../../interfaces/sidemenu';
 import { SidemenuService } from '../../services/sidemenu.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',

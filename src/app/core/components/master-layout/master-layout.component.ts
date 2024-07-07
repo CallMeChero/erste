@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { SidebarComponent } from '../components/sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
