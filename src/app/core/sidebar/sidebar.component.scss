@@ -1,0 +1,43 @@
+section.sidemenu {
+    flex: 1 1 100%;
+    height: calc(100% - 32px);
+    background-color: #205ABE;
+    border-radius: 24px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+
+    .logo-container {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+
+    .user-info {
+        display: flex;
+        flex-direction: column;
+
+        &__role {
+            text-transform: uppercase;
+            opacity: 70%;
+            font-size: 12px;
+            line-height: 11px;
+        }
+    }
+
+    .nav-item-container {
+        &__item {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 272px;
+            height: 56px;
+
+            &:hover {
+                border-radius: 12px;
+                opacity: 80%;
+                background-color: #4271C1;
+              }
+        }
+    }
+}

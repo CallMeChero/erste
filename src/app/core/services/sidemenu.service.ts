@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ISideMenuItem } from '../models/sidemenu';
+import { ISideMenuItem } from '../interfaces/sidemenu';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
