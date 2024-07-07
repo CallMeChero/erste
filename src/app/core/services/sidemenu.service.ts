@@ -43,6 +43,4 @@ export class SidemenuService {
    }
   ]);
   navItems$: Observable<ISideMenuItem[]> = this.navItems.asObservable();
-
-  constructor() { }
 }
