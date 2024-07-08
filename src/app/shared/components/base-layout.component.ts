@@ -24,5 +24,5 @@ export class BaseLayoutComponent {
         iconName,
         this._domSanitizer.bypassSecurityTrustResourceUrl(filePath)
       )
-    }
+  }
 }

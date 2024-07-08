@@ -1,0 +1,16 @@
+$column-widths: (50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 450, 500); // you can put your amount but don't delete any of existing
+@each $width in $column-widths {
+    .width-#{$width} {
+        width: #{$width}px !important;
+    }
+}
+
+.mat-mdc-cell {
+    font-weight: bold;
+}
+
+.mat-mdc-header-row {
+    background-color: #EAF1FD !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+}

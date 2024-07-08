@@ -6,13 +6,26 @@ section.iop-list-view {
         line-height: 24px;
     }
 
-    .filter-container {
-        
-        &__item {
+    .iop-filters {
+        display: flex;
+        flex-wrap: wrap; 
+
+        .filter-container {
+
+            flex-direction: column;
             display: flex;
-            align-items: center;
-            width: 250px;
+        
+            &__item {
+                display: flex;
+                align-items: center;
+                width: 250px;
+    
+                mat-icon {
+                    color: black;
+                }
+            }
         }
     }
+    
 }
 

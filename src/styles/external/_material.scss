@@ -23,7 +23,7 @@ body {
 
 .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
   background-color: white !important;
-  border: 2px solid #FFB097;
+  border: 2px solid #FF6130;
   border-radius: 12px;
 }
 
@@ -47,7 +47,7 @@ body {
 
 .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
   background-color: white !important;
-  border: 2px solid #FFB097 !important;
+  border: 2px solid #FF6130 !important;
   border-radius: 12px;
 }
 .mat-pseudo-checkbox.mat-mdc-option-pseudo-checkbox.mat-pseudo-checkbox-full {
@@ -61,4 +61,40 @@ body {
 .cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
   margin: 10px 0;
   border-radius: 12px;
+}
+
+.mat-mdc-select-arrow {
+  color: black;
+}
+
+.outline.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+  background-color: #FF6130 !important;
+  border: 2px solid #FF6130 !important;
+  border-radius: 12px;
+}
+
+.outline.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill .mat-mdc-floating-label {
+  color: white !important;
+}
+
+.outline .mat-mdc-select-placeholder {
+  color: white !important;
+}
+
+.mat-mdc-select-arrow {
+  display: none;
+  color: white;
+}
+
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled):not(.mat-mdc-option-multiple) {
+  color: white !important;
+  background-color: #FF6130 !important;
+}
+
+.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+  color: white !important; 
+}
+
+.single-select .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+  color: white !important;
 }

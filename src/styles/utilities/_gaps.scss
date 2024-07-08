@@ -3,4 +3,12 @@ $flexgaps: (5,10,15,20,24);
     .gap-#{$flexgap} {
         gap: #{$flexgap}px !important;
     }
+
+    .gap-row-#{$flexgap} {
+        row-gap: #{$flexgap}px !important;
+    }
+
+    .gap-column-#{$flexgap} {
+        column-gap: #{$flexgap}px !important;
+    }
 }

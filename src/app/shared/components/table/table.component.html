@@ -1,0 +1,184 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  [trackBy]="trackBy"
+  class="mat-elevation-z8"
+  (matSortChange)="sortData($event)"
+  matSort>
+  <!-- [multiTemplateDataRows]="isTableExpandable" -->
+
+  <ng-container *ngFor="let column of columns; index as idx">
+    <ng-container [ngSwitch]="column.columnType" [matColumnDef]="column.key">
+      <!-- Table Header Start -->
+      <th
+        mat-header-cell
+        *matHeaderCellDef
+        [ngClass]="column.cellClass"
+        [mat-sort-header]="column.key"
+        [disabled]="!column.sortable">
+        <mat-checkbox
+          *ngIf="column.columnType === 'checkbox'"
+          color="primary"
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+        <span>
+          {{ column.title }}
+        </span>
+      </th>
+      <!-- Table Header End -->
+      <!-- Type Column: [Checkbox] Start -->
+      <ng-container *ngSwitchCase="'checkbox'">
+        <!-- NOTE: All single selects are going to be passed via 'template', this is just for multiselect-->
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="column?.dataClass(element)">
+          <mat-checkbox
+            color="primary"
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(element) : null"
+            [checked]="selection.isSelected(element)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <!-- Type Column: [Checkbox] End -->
+      <!-- Type Column: [Expandable] Start -->
+      <ng-container *ngSwitchCase="'expandable'">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          class="expandable"
+          [ngClass]="column?.dataClass(element)"
+          (click)="column.actionCallback?.(element, $event)">
+          <mat-icon>{{
+                    column.actionValue?.(element) ? 'expand_less' : 'expand_more'
+          }}</mat-icon>
+        </td>
+      </ng-container>
+<!-- Type Column: [Expandable] End -->
+      <!-- Type Column: [Button] Start -->
+      <ng-container *ngSwitchCase="'button'">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="column?.dataClass(element)">
+          <button
+            color="primary"
+            (click)="column.actionCallback?.(element, $event)"
+            mat-button
+            class="text-link">
+            <ng-container *ngIf="column.icon">
+              <mat-icon>{{ column.icon }}</mat-icon>
+            </ng-container>
+            {{ column?.valueGetterFn(element) }}
+          </button>
+        </td>
+      </ng-container>
+      <!-- Type Column: [Button] End -->
+      <!-- Column Type [Template] Start-->
+      <ng-container *ngSwitchCase="'template'">
+        <td
+          mat-cell
+          *matCellDef="let element; let i = renderIndex"
+          [ngClass]="column?.dataClass(element)">
+          <ng-container
+            [ngTemplateOutlet]="column.template"
+            [ngTemplateOutletContext]="{
+              entity: element,
+              column: column,
+              index: i
+            }">
+          </ng-container>
+        </td>
+      </ng-container>
+      <!-- Column Type [Template] End-->
+      <!-- Type Column: [Date] Start -->
+      <ng-container *ngSwitchCase="'date'">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="column?.dataClass(element)">
+          {{ element[column.key] | date : column.dateFormat }}
+        </td>
+      </ng-container>
+      <!-- Type Column: [Date] End -->
+      <!-- Type Column: [Dynamic Text] Start -->
+      <ng-container *ngSwitchCase="'dynamic-text'">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="column?.dataClass(element)">
+          {{ column?.valueGetterFn(element) }}
+        </td>
+      </ng-container>
+      <!-- Type Column: [Dynamic Text] End -->
+      <!-- Type Column: [Dynamic HTML] Start -->
+      <ng-container *ngSwitchCase="'dynamic-html'">
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="column?.dataClass(element)"
+          [innerHTML]="column?.valueGetterFn(element)">
+          <!-- <div innerHTML="{{column?.valueGetterFn(element)}}"></div> -->
+        </td>
+      </ng-container>
+      <!-- Type Column: [Dynamic HTML] End -->
+<!-- Column Type Default [Text] start -->
+      <ng-container *ngSwitchDefault>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [ngClass]="column?.dataClass(element)">
+          {{ element[column.key] }}
+        </td>
+      </ng-container>
+      <!-- Column Type Default [Text] End -->
+    </ng-container>
+  </ng-container>
+  <!-- Type Column: [Expandable Detail] Start -->
+  <ng-container matColumnDef="expandable-detail">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      [style.background-color]="
+        isColumnExpandedOrSelected(element, columns)
+          ? 'var(--color-neutral-40)'
+          : 'white'
+      "
+      [attr.colspan]="displayedColumns.length">
+      <ng-container
+        *ngTemplateOutlet="
+          expandableTemplate;
+          context: { entity: element }
+        "></ng-container>
+    </td>
+  </ng-container>
+  <!-- Type Column: [Expandable] End -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <!-- onRowClicked(row) -->
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="
+      isActionTable
+        ? singleSelection.isSelected(row)
+          ? singleSelection.deselect(row)
+          : singleSelection.select(row)
+        : null;
+    "
+    [class.ds-expand]="isColumnExpandedOrSelected(row, columns)"
+    [class.inverse]="isColumnExpandedOrSelected(row, columns)"
+    [class.single-row-selected]="singleSelection.isSelected(row)"
+    [class.table-row-selected]="selection.isSelected(row)"></tr>
+  <ng-container *ngIf="isTableExpandable">
+    <tr
+      mat-row
+      *matRowDef="let element; columns: ['expandable-detail']"
+      class="border border-bottom-0"
+      [ngClass]="{
+        'd-none': !isColumnExpandedOrSelected(element, columns)
+      }"></tr>
+  </ng-container>
+</table>

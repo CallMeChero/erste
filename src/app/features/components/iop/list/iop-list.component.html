@@ -1,31 +1,91 @@
 <section class="iop-list-view">
     <h3 class="mb-32">IOP</h3>
-    <div class="row gap-24">
-        <article class="filter-container">
-            <mat-label>Pretraga</mat-label>
-            <mat-form-field class="filter-container__item mt-5">
-                <input matInput placeholder="Upiši pojam za pretragu" type="text" [(ngModel)]="value">
-                <mat-icon matSuffix class="icon-size-24" [svgIcon]="searchIcon.name!"></mat-icon>
-            </mat-form-field>
-        </article>
-        <article class="filter-container">
-            <mat-label>Filteri</mat-label>
-            <mat-form-field  class="filter-container__item mt-5">
-                <mat-select [formControl]="toppings" placeholder="Odaberi filter" multiple>
-                    <mat-select-trigger>
-                      {{toppings.value?.[0] || ''}}
-                      @if ((toppings.value?.length || 0) > 1) {
-                        <span class="example-additional-selection">
-                          (+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ? 'odabran' : 'odabrana'}})
-                        </span>
-                      }
-                    </mat-select-trigger>
-                    @for (topping of toppingList; track topping) {
-                     <mat-option [value]="topping">{{topping}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-        </article>
+    <form [formGroup]="iopForm">
+        <div class="row iop-filters gap-column-24">
+            <article class="filter-container">
+                <mat-label>Pretraga</mat-label>
+                <mat-form-field class="filter-container__item mt-5">
+                    <input matInput placeholder="Upiši pojam za pretragu" type="text" formControlName="search">
+                    <mat-icon matSuffix class="icon-size-24" [svgIcon]="searchIcon.name!"></mat-icon>
+                </mat-form-field>
+            </article>
+            <article class="filter-container">
+                <mat-label>Filteri</mat-label>
+                <mat-form-field class="filter-container__item mt-5">
+                    <mat-select formControlName="activeFilters" placeholder="Odaberi filter"
+                        (openedChange)="isFilterSelectOpen$.next($event)" multiple>
+                        <mat-select-trigger>
+                            {{activeFilters.value?.[0]?.label || ''}}
+                            @if ((activeFilters.value?.length || 0) > 1) {
+                            <span>
+                                (+{{(activeFilters.value?.length || 0) - 1}} {{activeFilters.value?.length === 2 ? 'odabran' :
+                                'odabrana'}})
+                            </span>
+                            }
+                        </mat-select-trigger>
+                        @for (filter of filterDropdown; track filter) {
+                            <mat-option [value]="filter">{{filter.label}}</mat-option>
+                        }
+                    </mat-select>
+                    <mat-icon matSuffix class="icon-size-24 color-black"
+                        [svgIcon]="(isFilterSelectOpen$ | async) ? arrowUpIcon.name! : arrowDownIcon.name!"></mat-icon>
+                </mat-form-field>
+            </article>
+            @for (activeFilter of activeFilters.value; track activeFilter) {
+                @if (activeFilter.type === filterTypeEnum.SELECT) {
+                    <article class="filter-container">
+                        <mat-label>{{ activeFilter.label }}</mat-label>
+                        <mat-form-field class="filter-container__item single-select mt-5">
+                            <mat-select formControlName="{{ activeFilter.formControlName }}" placeholder="{{ activeFilter.placeholder }}" (openedChange)="activeFilter.isOpen = !activeFilter.isOpen">
+                                @for (filter of activeFilter?.items; track filter) {
+                                    <mat-option [value]="filter">{{filter}}</mat-option>
+                                }
+                            </mat-select>
+                            <mat-icon matSuffix class="icon-size-24 color-black"
+                                [svgIcon]="activeFilter.isOpen ? arrowUpIcon.name! : arrowDownIcon.name!"></mat-icon>
+                        </mat-form-field>
+                    </article>
+                } 
+                @if (activeFilter.type === filterTypeEnum.INPUT) {
+                    <article class="filter-container">
+                        <mat-label>{{ activeFilter.label }}</mat-label>
+                        <mat-form-field class="filter-container__item mt-5">
+                            <input matInput formControlName="{{ activeFilter.formControlName }}" placeholder="{{ activeFilter.placeholder }}" type="text" formControlName="search">
+                            <mat-icon matSuffix class="icon-size-24" [svgIcon]="searchIcon.name!"></mat-icon>
+                        </mat-form-field>
+                    </article>
+                }
+            }
+        </div>
+        <div>
+            <article>
+                <mat-form-field class="filter-container__item outline mt-5">
+                    <mat-label>Akcije</mat-label>
+                    <mat-select placeholder="Odaberi akciju" (openedChange)="isActionSelectOpen$.next($event)">
+                        @for (action of actionDropdown; track action) {
+                        <mat-option>{{action}}</mat-option>
+                        }
+                    </mat-select>
+                    <mat-icon matSuffix class="icon-size-24 color-white"
+                        [svgIcon]="(isActionSelectOpen$ | async) ? arrowUpIcon.name! : arrowDownIcon.name!"></mat-icon>
+                </mat-form-field>
+            </article>
+        </div>
+    </form>
+
+    <div class="table-container mt-10 mr-24">
+        <app-table
+            [columns]="tableColumns"
+            [hasPagination]="false"
+            [pageSize]="10"
+            [pageLength]="1"
+            [dataSource]="dataList"
+            [isLoading]="false"
+            [isTableExpandable]="false"
+            [displayedColumns]="mapTableColumnKeys()"
+            [currentPage]="1"
+            (pageChanged)="handlePageChange($event)">
+
+        </app-table>
     </div>
-    
 </section>
