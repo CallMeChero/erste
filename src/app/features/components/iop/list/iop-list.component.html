@@ -76,7 +76,7 @@
     <div class="table-container mt-10 mr-24">
         <app-table
             [columns]="tableColumns"
-            [hasPagination]="false"
+            [hasPagination]="true"
             [pageSize]="10"
             [pageLength]="1"
             [dataSource]="dataList"
@@ -85,7 +85,6 @@
             [displayedColumns]="mapTableColumnKeys()"
             [currentPage]="1"
             (pageChanged)="handlePageChange($event)">
-
         </app-table>
     </div>
 </section>

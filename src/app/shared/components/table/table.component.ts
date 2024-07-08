@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
+import { PaginationComponent } from '../pagination/pagination.component';
 // OVO sam ostavio ovako jer mozda ce trebati karticna tablica u buducnosti
 @Component({
   selector: 'app-table',
@@ -19,7 +20,8 @@ import { SelectionModel } from '@angular/cdk/collections';
     MatIcon,
     MatTableModule,
     MatSortModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    PaginationComponent
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'

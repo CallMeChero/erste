@@ -1,0 +1,7 @@
+<mat-paginator
+  [length]="length"
+  [pageSize]="size"
+  [pageIndex]="pageIndex"
+  [pageSizeOptions]="(pageSizeOptions$ | async) ?? []"
+  (page)="changePageEvent.emit($event)">
+</mat-paginator>

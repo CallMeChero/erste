@@ -182,3 +182,10 @@
       }"></tr>
   </ng-container>
 </table>
+
+<app-pagination
+  *ngIf="hasPagination && pageLength"
+  [length]="pageLength"
+  [pageIndex]="currentPage - 1"
+  [size]="pageSize"
+  (changePageEvent)="onPageChanged($event)"></app-pagination>
