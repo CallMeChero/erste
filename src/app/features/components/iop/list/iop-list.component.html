@@ -63,7 +63,7 @@
                     <mat-label>Akcije</mat-label>
                     <mat-select placeholder="Odaberi akciju" (openedChange)="isActionSelectOpen$.next($event)">
                         @for (action of actionDropdown; track action) {
-                        <mat-option>{{action}}</mat-option>
+                            <mat-option (onSelectionChange)="onChangeAction()">{{action}}</mat-option>
                         }
                     </mat-select>
                     <mat-icon matSuffix class="icon-size-24 color-white"

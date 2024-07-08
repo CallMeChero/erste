@@ -13,3 +13,8 @@ export enum EFilterType {
     CHECKBOX = 'checkbox',
     SELECT = 'select'
 }
+
+export interface ISimpleFilter {
+    name: string;
+    value: string;
+}

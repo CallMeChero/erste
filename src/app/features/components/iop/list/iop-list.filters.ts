@@ -1,4 +1,4 @@
-import { EFilterType, IFormFilter } from "@shared/interfaces/filter";
+import { EFilterType, IFormFilter, ISimpleFilter } from "@shared/interfaces/filter";
 
 export const IOP_FILTERS: IFormFilter[] = [
     {
@@ -45,4 +45,25 @@ export const IOP_ACTION_FILTERS: string[] = [
     'Izdavanje iz arhive',
     'Kreiraj zadatak',
     'Poništi'
-]
+];
+
+export const ISSUE_REASONS: ISimpleFilter[] = [
+    {
+        value: '1',
+        name: 'Povrat - promjena IOP-a'
+    }
+];
+
+export const DELIVERY_WAYS: ISimpleFilter[] = [
+    {
+        value: '1',
+        name: 'Osobno'
+    }
+];
+
+export const WHO_GOT_IOP: ISimpleFilter[] = [
+    {
+        value: '1',
+        name: 'Marko Perić'
+    }
+];

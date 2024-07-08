@@ -1,0 +1,54 @@
+<h2 mat-dialog-title style="font-weight: bold;">Izdavanje iz arhive OV-1234/10</h2>
+<mat-dialog-content>
+    <form [formGroup]="archiveForm" class="">
+        <article class="filter-container">
+            <mat-checkbox formControlName="isInArchive">IOP nije u arhivi</mat-checkbox>
+        </article>
+        <article class="filter-container mt-8 mx-10">
+            <mat-label>Obrazloženje</mat-label>
+            <mat-form-field class="mt-5">
+                <input matInput placeholder="Upiši obrazloženje" type="text" formControlName="description">
+            </mat-form-field>
+        </article>
+        <article class="filter-container mt-8 mx-10">
+            <mat-label>Razlog izdavanja</mat-label>
+            <mat-form-field class="single-select mt-5">
+                <mat-select formControlName="issueReason" placeholder="Odaberi razlog izdavanja" (openedChange)="isIssueReasonsOpen = !isIssueReasonsOpen">
+                    @for (filter of issueReasons; track filter) {
+                        <mat-option [value]="filter.name">{{filter.name}}</mat-option>
+                    }
+                </mat-select>
+                <mat-icon matSuffix class="icon-size-24 color-black"
+                    [svgIcon]="isIssueReasonsOpen ? arrowUpIcon.name! : arrowDownIcon.name!"></mat-icon>
+            </mat-form-field>
+        </article>
+        <article class="filter-container mt-8 mx-10">
+            <mat-label>Način predaje IOP-a</mat-label>
+            <mat-form-field class="single-select mt-5">
+                <mat-select formControlName="issueReason" placeholder="Odaberi način predaje IOP-a" (openedChange)="isDeliveryOpen = !isDeliveryOpen">
+                    @for (filter of deliveryWays; track filter) {
+                        <mat-option [value]="filter.name">{{filter.name}}</mat-option>
+                    }
+                </mat-select>
+                <mat-icon matSuffix class="icon-size-24 color-black"
+                    [svgIcon]="isDeliveryOpen ? arrowUpIcon.name! : arrowDownIcon.name!"></mat-icon>
+            </mat-form-field>
+        </article>
+        <article class="filter-container mt-8 mx-10">
+            <mat-label>Kome je IOP predan</mat-label>
+            <mat-form-field class="single-select mt-5">
+                <mat-select formControlName="issueReason" placeholder="Odaberi kome je IOP predan" (openedChange)="isGotIOPOpen = !isGotIOPOpen">
+                    @for (filter of whoGotIOPs; track filter) {
+                        <mat-option [value]="filter.name">{{filter.name}}</mat-option>
+                    }
+                </mat-select>
+                <mat-icon matSuffix class="icon-size-24 color-black"
+                    [svgIcon]="isGotIOPOpen ? arrowUpIcon.name! : arrowDownIcon.name!"></mat-icon>
+            </mat-form-field>
+        </article>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Zatvori</button>
+  <button mat-button [mat-dialog-close]="onSubmit()" cdkFocusInitial>Spremi</button>
+</mat-dialog-actions>

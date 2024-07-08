@@ -16,6 +16,8 @@ import { IopTableRow, MOCK } from '@features/interfaces/iop';
 import { TableComponent } from '@shared/components/table/table.component';
 import { getIopListColumns } from './iop-list.table-columns';
 import { PageEvent } from '@angular/material/paginator';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ArchiveIssuingComponent } from '../dialog/archive-issuing/archive-issuing.component';
 
 @Component({
   selector: 'app-iop-list',
@@ -29,7 +31,8 @@ import { PageEvent } from '@angular/material/paginator';
     ReactiveFormsModule,
     MatButtonModule,
     MatIconModule,
-    TableComponent
+    TableComponent,
+    MatDialogModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
@@ -51,11 +54,13 @@ export class IopListComponent extends BaseListComponent<IopTableRow> implements 
 
   public iopForm!: FormGroup;
   public filterTypeEnum: typeof EFilterType = EFilterType; 
+  private isDialogOpen = false;
   
   constructor(
     readonly _matIconRegistry: MatIconRegistry,
     readonly _domSanitizer: DomSanitizer,
-    private readonly _formBuilder: FormBuilder
+    private readonly _formBuilder: FormBuilder,
+    private readonly _dialog: MatDialog
   ) {
     super();
     this.registerIcon(this.searchIcon!.name!, this.searchIcon.filePath);
@@ -77,7 +82,6 @@ export class IopListComponent extends BaseListComponent<IopTableRow> implements 
 
   public ngOnInit(): void {
     this.tableColumns = getIopListColumns.bind(this)();
-    this.activeFilters.valueChanges.subscribe(data => console.log(data))
   }
 
   /**
@@ -99,6 +103,23 @@ export class IopListComponent extends BaseListComponent<IopTableRow> implements 
     console.log(data)
     // const page: number = data.pageIndex + 1;
     // OPALI API
+  }
+
+  public onChangeAction(): void {
+    if(!this.isDialogOpen) {
+      // moramo ovako jer je onChange bez reaktivne forme daje 2x event van
+      this.isDialogOpen = true;
+      const dialogRef = this._dialog.open(ArchiveIssuingComponent, {
+        height: '650px',
+        width: '618px',
+        data: {},
+      });
+  
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        console.log('The dialog was closed', result);
+        this.isDialogOpen = false;
+      });
+    }
   }
 
   get activeFilters(): AbstractControl {
