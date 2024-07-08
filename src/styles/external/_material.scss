@@ -98,3 +98,8 @@ body {
 .single-select .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
   color: white !important;
 }
+
+.mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background  {
+  background-color: #FF6130 !important;
+  border-color: #FF6130 !important;
+}
