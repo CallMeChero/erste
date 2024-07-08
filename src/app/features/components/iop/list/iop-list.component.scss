@@ -5,4 +5,14 @@ section.iop-list-view {
         font-weight: bold;
         line-height: 24px;
     }
+
+    .filter-container {
+        
+        &__item {
+            display: flex;
+            align-items: center;
+            width: 250px;
+        }
+    }
 }
+

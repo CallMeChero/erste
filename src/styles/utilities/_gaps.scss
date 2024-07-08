@@ -1,4 +1,4 @@
-$flexgaps: (5,10,15,20);
+$flexgaps: (5,10,15,20,24);
 @each $flexgap in $flexgaps {
     .gap-#{$flexgap} {
         gap: #{$flexgap}px !important;

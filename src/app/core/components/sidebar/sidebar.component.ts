@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ISideMenuItem } from '../../interfaces/sidemenu';
 import { SidemenuService } from '../../services/sidemenu.service';
 import { Router, RouterModule } from '@angular/router';
+import { BaseLayoutComponent } from '@shared/components/base-layout.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,40 +17,33 @@ import { Router, RouterModule } from '@angular/router';
   providers: [HttpClient, Router],
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent implements OnInit{
+export class SidebarComponent extends BaseLayoutComponent implements OnInit{
   public homeNavItem!: ISideMenuItem;
   public userNavItem!: ISideMenuItem;
   public featureNavItems$: Observable<ISideMenuItem[]> = of([]);
 
   constructor(
-    private readonly _matIconRegistry: MatIconRegistry,
-    private readonly _domSanitizer: DomSanitizer,
+    _matIconRegistry: MatIconRegistry,
+    _domSanitizer: DomSanitizer,
     private readonly _sidemenuService: SidemenuService
   ) {
+    super(
+      _matIconRegistry,
+      _domSanitizer
+    );
     this.homeNavItem = _sidemenuService.homeItem;
     this.userNavItem = _sidemenuService.userItem;
 
-    this.registerIcon(this.homeNavItem);
-    this.registerIcon(this.userNavItem);
+    this.registerIcon(this.homeNavItem.name!, this.homeNavItem.filePath);
+    this.registerIcon(this.userNavItem!.name!, this.userNavItem.filePath);
   }
 
   public ngOnInit(): void {
     // this will be role based items
     this.featureNavItems$ = this._sidemenuService.navItems$.pipe(
       tap((items: ISideMenuItem[]) => {
-        items.forEach((item: ISideMenuItem) => this.registerIcon(item));
+        items.forEach((item: ISideMenuItem) => this.registerIcon(item.name!, item.filePath!));
       })
     );
   }
-
-  /**
-   * Method used to register custom icons
-   * @param navItem ISideMenuItem
-  */
-  private registerIcon(navItem: ISideMenuItem): void {
-    this._matIconRegistry.addSvgIcon(
-        navItem.name!,
-        this._domSanitizer.bypassSecurityTrustResourceUrl(navItem.filePath)
-      )
-    }
 }
