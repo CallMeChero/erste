@@ -5,7 +5,7 @@ $fontsizes: (12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 40, 48);
     }
 }
 
-$iconsizes: (24, 32, 40, 70);
+$iconsizes: (24, 32, 40, 70, 100);
 @each $iconsize in $iconsizes {
     .icon-size-#{$iconsize} {
         font-size: #{$iconsize}px !important;

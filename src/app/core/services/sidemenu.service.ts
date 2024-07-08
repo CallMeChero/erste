@@ -10,7 +10,7 @@ export class SidemenuService {
   // this two are static so no need for async
   homeItem: ISideMenuItem = {
     name: 'Logo',
-    filePath: 'icons/logo.svg',
+    filePath: 'icons/erste_logo.svg',
     urlPath: '',
     isActive: true
   };

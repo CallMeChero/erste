@@ -23,6 +23,15 @@
             </mat-form-field>
         </article>
         <article class="filter-container mt-8 mx-10">
+            <mat-label>Datum izdavanja</mat-label>
+            <mat-form-field class="example-full-width">
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+              
+        </article>
+        <article class="filter-container mt-8 mx-10">
             <mat-label>Način predaje IOP-a</mat-label>
             <mat-form-field class="single-select mt-5">
                 <mat-select formControlName="issueReason" placeholder="Odaberi način predaje IOP-a" (openedChange)="isDeliveryOpen = !isDeliveryOpen">

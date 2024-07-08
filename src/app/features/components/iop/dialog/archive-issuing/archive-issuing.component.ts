@@ -11,6 +11,8 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Icon } from '@shared/interfaces/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-archive-issuing',
@@ -24,10 +26,12 @@ import { MatInputModule } from '@angular/material/input';
     MatCheckboxModule,
     FormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDatepickerModule
   ],
   templateUrl: './archive-issuing.component.html',
-  styleUrl: './archive-issuing.component.scss'
+  styleUrl: './archive-issuing.component.scss',
+  providers: [provideNativeDateAdapter()]
 })
 export class ArchiveIssuingComponent {
 
@@ -56,7 +60,7 @@ export class ArchiveIssuingComponent {
       isInArchive: new FormControl(false),
       description: new FormControl(''),
       issueReason: new FormControl(null),
-      datumIzdavanja: new FormControl(new Date()),
+      date: new FormControl(new Date()),
       deliveryWay: new FormControl(null),
       whoGotIOP: new FormControl(null)
     })

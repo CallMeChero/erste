@@ -110,7 +110,7 @@ export class IopListComponent extends BaseListComponent<IopTableRow> implements 
       // moramo ovako jer je onChange bez reaktivne forme daje 2x event van
       this.isDialogOpen = true;
       const dialogRef = this._dialog.open(ArchiveIssuingComponent, {
-        height: '650px',
+        height: '800px',
         width: '618px',
         data: {},
       });
